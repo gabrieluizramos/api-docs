@@ -50,28 +50,31 @@ The response object rates must be a JSON array of objects with the following fie
 
 ```json
 {
+    "store_id": 123456,
+    "currency": "ARS",
+    "language": "es",
     "origin": {
-        "country": "AR",
-        "postal_code": "1602",
-        "province": "Capital Federal",
-        "locality": "Nuñez",
-        "city": "Capital Federal",
         "name": null,
         "address": "Avenida Cabildo",
         "number": "4781",
         "floor": null,
+        "locality": "Nuñez",
+        "city": "Capital Federal",
+        "province": "Capital Federal",
+        "country": "AR",
+        "postal_code": "1602",
         "phone": null
     },
     "destination": {
-        "country": "AR",
-        "postal_code": "1602",
-        "province": "Capital Federal",
-        "locality": "Nuñez",
-        "city": "Capital Federal",
         "name": null,
         "address": "Juan B. Justo",
         "number": "3000",
         "floor": null,
+        "locality": "Nuñez",
+        "city": "Capital Federal",
+        "province": "Capital Federal",
+        "country": "AR",
+        "postal_code": "1602",
         "phone": null
     },
     "items": [
@@ -79,16 +82,16 @@ The response object rates must be a JSON array of objects with the following fie
             "name": "My product",
             "sku": null,
             "quantity": 1,
+            "free_shipping": true,
             "grams": 1000,
-            "price": 2000,
-            "width": "0.00",
-            "height": "0.00",
-            "depth": "0.00",
-            "free_shipping": false
+            "price": 20.00,
+            "dimensions": {
+                "width": 12.0,
+                "height": 10.0,
+                "depth": 10.0
+            }
         }
-    ],
-    "currency": "ARS",
-    "language": "es"
+    ]
 }
 ```
 
