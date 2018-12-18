@@ -99,134 +99,138 @@ The response object rates must be a JSON array of objects with the following fie
 `HTTP/1.1 200 OK`
 ```json
 {
-    "rates": [
-        {
-            "name": "Standard Shipping",
-            "code": "standard",
-            "price": "1415",
-            "currency": "ARS",
-            "type": "ship",
-            "min_delivery_date": "2016-07-14 14:48:45 -0300",
-            "max_delivery_date": "2016-07-17 14:48:45 -0300",
-            "phone_required": false,
-            "id_required": false,
-            "accepts_cod": true
-        },
-        {
-            "name": "Express Shipping",
-            "code": "express",
-            "price": "2815",
-            "currency": "ARS",
-            "type": "ship",
-            "min_delivery_date": "2016-07-12 14:48:45 -0300",
-            "max_delivery_date": "2016-07-13 14:48:45 -0300",
-            "phone_required": false,
-            "id_required": false,
-            "accepts_cod": true
-        },
-        {
-            "name": "Shipping branch #1",
-            "code": "pickup_1",
-            "price": "1415",
-            "currency": "ARS",
-            "type": "pickup",
-            "min_delivery_date": "2016-07-14 14:48:45 -0300",
-            "max_delivery_date": "2016-07-17 14:48:45 -0300",
-            "phone_required": false,
-            "id_required": false,
-            "accepts_cod": true,
-            "availability": false,
-            "address": {
-                "address": "My address",
-                "number": "345",
-                "floor": null,
-                "locality": "Lanús",
-                "city": "Lanús",
-                "province": "Buenos Aires",
-                "country": "AR",
-                "phone": "+54 11 5678-1234",
-                "zipcode": "1824"
-            },
-            "hours": [
-                {
-                    "day": 1,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 2,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 3,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 4,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 5,
-                    "start": "0900",
-                    "end": "1800"
-                }
-            ]
-        },
-        {
-            "name": "Shipping branch #2",
-            "code": "pickup_2",
-            "price": "1415",
-            "currency": "ARS",
-            "type": "pickup",
-            "min_delivery_date": "2016-07-12 14:48:45 -0300",
-            "max_delivery_date": "2016-07-13 14:48:45 -0300",
-            "accepts_cod": true,
-            "phone_required": false,
-            "id_required": false,
-            "availability": false,
-            "address": {
-                "address": "Another address",
-                "number": "123",
-                "floor": null,
-                "locality": "Florida",
-                "city": "Vicente Lopez",
-                "province": "Buenos Aires",
-                "country": "AR",
-                "phone": "+54 11 1234-5678",
-                "zipcode": "1602"
-            },
-            "hours": [
-                {
-                    "day": 1,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 2,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 3,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 4,
-                    "start": "0900",
-                    "end": "1800"
-                },
-                {
-                    "day": 5,
-                    "start": "0900",
-                    "end": "1800"
-                }
-            ]
-        }        
-    ]
+   "rates": [
+       {
+           "name": "Standard Shipping",
+           "code": "standard",
+           "price": 0.00,
+           "price_merchant": 14.15,
+           "currency": "ARS",
+           "type": "ship",
+           "min_delivery_date": "2016-07-14T14:48:45-0300",
+           "max_delivery_date": "2016-07-17T14:48:45-0300",
+           "phone_required": true,
+           "reference": "ref123"
+       },
+       {
+           "name": "Express Shipping",
+           "code": "express",
+           "price": 28.15,
+           "currency": "ARS",
+           "type": "ship",
+           "min_delivery_date": "2016-07-12T14:48:45-0300",
+           "max_delivery_date": "2016-07-13T14:48:45-0300",
+           "id_required": true,
+           "reference": "ref123"
+       },
+       {
+           "name": "Shipping branch #1",
+           "code": "pickup_1",
+           "price": 14.15,
+           "currency": "ARS",
+           "type": "pickup",
+           "min_delivery_date": "2016-07-14T14:48:45-0300",
+           "max_delivery_date": "2016-07-17T14:48:45-0300",
+           "phone_required": true,
+           "id_required": true,
+           "accepts_cod": true,
+           "address": {
+               "address": "My address",
+               "number": "345",
+               "floor": null,
+               "locality": "Lanús",
+               "city": "Lanús",
+               "province": "Buenos Aires",
+               "country": "AR",
+               "phone": "+54 11 5678-1234",
+               "zipcode": "1824",
+               "latitude": "123456",
+               "longitude": "-123456"
+           },
+           "hours": [
+               {
+                   "day": 1,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 2,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 3,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 4,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 5,
+                   "start": "0900",
+                   "end": "1800"
+               }
+           ],
+           "availability": false,
+           "reference": "ref123"
+       },
+       {
+           "name": "Shipping branch #2",
+           "code": "pickup_2",
+           "price": 14.15,
+           "currency": "ARS",
+           "type": "pickup",
+           "min_delivery_date": "2016-07-12T14:48:45-0300",
+           "max_delivery_date": "2016-07-13T14:48:45-0300",
+           "accepts_cod": true,
+           "phone_required": true,
+           "id_required": true,
+           "address": {
+               "address": "Another address",
+               "number": "123",
+               "floor": null,
+               "locality": "Florida",
+               "city": "Vicente Lopez",
+               "province": "Buenos Aires",
+               "country": "AR",
+               "phone": "+54 11 1234-5678",
+               "zipcode": "1602",
+               "latitude": null,
+               "longitude": null
+           },
+           "hours": [
+               {
+                   "day": 1,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 2,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 3,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 4,
+                   "start": "0900",
+                   "end": "1800"
+               },
+               {
+                   "day": 5,
+                   "start": "0900",
+                   "end": "1800"
+               }
+           ],
+           "reference": "ref123"
+       }       
+   ]
 }
 ```
 
