@@ -43,6 +43,7 @@ The response object rates must be a JSON array of objects with the following fie
 | id_required        | Whether the customer must provide an identification number at checkout. Defaults to `false`.                                               |
 | phone_required     | Whether the customer must provide a phone number at checkout. Defaults to `false`.                                                         |
 | accepts_cod        | Whether the customer is allowed to pay for this rate with a Cash on Delivery (COD) payment method (defaults to `true`).                    |
+| reference          | An internal reference yo wish to save for the rate. We will save it and return it on the Order as `shipping_option_reference`.             |
 | availability       | _(pickup only)_ Whether there is availability for all items at the location. Defaults to `true`.                                                               |
 
 ### Example requests for shipping rates
