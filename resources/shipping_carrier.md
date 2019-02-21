@@ -5,8 +5,8 @@ A shipping carrier (or shipping company) service provides real-time shipping rat
 
 Using these endpoints, you can add a shipping carrier to a store and provide shipping rates at checkout.
 
-Properties
-----------
+Shipping Carrier Properties
+---------------------------
 
 | Property           | Explanation                                                                                                                   |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -17,6 +17,27 @@ Properties
 | active             | Whether this Shipping Carrier is active.                                                                                      |
 | created_at         | Date when the Shipping Carrier was created in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601).                       | 
 | updated_at         | Date when the Shipping Carrier was last updated in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601).                  |
+
+Shipping Carrier Options
+------------------------
+
+Almost every shipping carrier has multiple options to offer to the consumers, like standard and express shipping options. These options may provide some configurable values to the merchants through the store's admin, like additional costs and days, and also free shipping availability options.
+
+Shipping Carrier Options Properties
+-----------------------------------
+
+| Property | Explanation |
+|----------|-------------|
+| id | The unique numeric identifier for the Shipping Carrier Option. |
+| code | A unique code associated with the Shipping Carrier Option. |
+| name | The name of the Shipping Carrier Option as seen by both merchants and buyers. |
+| additional_days | The additional days configurable value that will be added to the option's estimated delivery time. |
+| additional_cost | The additional cost configurable value that will be added to the option's consumer price. |
+| allow_free_shipping | The configurable free shipping eligible parameter that specifies that an option allows free shipping. |
+| active | Whether this Shipping Carrier Option is active. |
+| created_at | Date when the Shipping Carrier Option was created in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601). |
+| updated_at | Date when the Shipping Carrier Option was last updated in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601). |
+
 
 Providing rates to our merchants 
 --------------------------------
@@ -254,6 +275,40 @@ If any of these fields differ, or if the cache has expired since the original re
 Endpoints
 ---------
 
+### POST /shipping_carriers
+
+Create a new Shipping Carrier
+
+| Parameter          | Explanation                                                                                                    |
+| ------------------ | -------------------------------------------------------------------------------------------------------------- |
+| name               | The name of the Shipping Carrier as seen by both merchants and buyers.                                         |
+| callback_url       | The URL endpoint that we need to retrieve shipping rates when the buyer wants the items ship to an address.    |
+| types              | Comma separated values indicating supported methods: can be any of `ship` or `pickup`.                         |
+
+#### POST /shipping_carriers
+
+```json
+{
+    "name": "My Shipping Company",
+    "callback_url": "https://example.com/rates",
+    "types": "ship,pickup"
+}
+```
+
+`HTTP/1.1 201 Created`
+
+```json
+{
+    "id": 123,
+    "name": "My Shipping Company",
+    "active": true,
+    "callback_url": "https://example.com/rates",
+    "types": "ship,pickup",
+    "created_at": "2013-06-11T11:12:10-03:00",
+    "updated_at": "2013-06-11T11:12:10-03:00"    
+}
+```
+
 ### GET /shipping_carriers
 
 Receive a list of all Shipping Carriers.
@@ -303,40 +358,6 @@ Receive a single Shipping Carrier
 }
 ```
 
-### POST /shipping_carriers
-
-Create a new Shipping Carrier
-
-| Parameter          | Explanation                                                                                                    |
-| ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| name               | The name of the Shipping Carrier as seen by both merchants and buyers.                                         |
-| callback_url       | The URL endpoint that we need to retrieve shipping rates when the buyer wants the items ship to an address.    |
-| types              | Comma separated values indicating supported methods: can be any of `ship` or `pickup`.                         |
-
-#### POST /shipping_carriers
-
-```json
-{
-    "name": "My Shipping Company",
-    "callback_url": "https://example.com/rates",
-    "types": "ship,pickup"
-}
-```
-
-`HTTP/1.1 201 Created`
-
-```json
-{
-    "id": 123,
-    "name": "My Shipping Company",
-    "active": true,
-    "callback_url": "https://example.com/rates",
-    "types": "ship,pickup",
-    "created_at": "2013-06-11T11:12:10-03:00",
-    "updated_at": "2013-06-11T11:12:10-03:00"    
-}
-```
-
 ### PUT /shipping_carriers/#{id}
 
 Modify an existing Shipping Carrier
@@ -371,6 +392,141 @@ Modify an existing Shipping Carrier
 Remove a Shipping Carrier
 
 #### DELETE /shipping_carriers/123
+
+`HTTP/1.1 200 OK`
+
+```json
+{}
+```
+
+### POST /shipping_carriers/#{carrier_id}/options
+
+Create a new Shipping Carrier Option
+
+| Parameter | Explanation | Required |
+|-----------|-------------|----------|
+| code | A unique code associated with the Shipping Carrier Option. | Yes |
+| name | The name of the Shipping Carrier Option as seen by both merchants and buyers. | Yes |
+| additional_days | The additional days configurable value that will be added to the option's estimated delivery time. | No |
+| additional_cost | The additional cost configurable value that will be added to the option's consumer price. | No |
+| allow_free_shipping | The configurable free shipping eligible parameter that specifies that an option allows free shipping. | No |
+
+#### POST /shipping_carriers/1234/options
+
+```json
+{
+    "code": "pac",
+    "name": "Correios - PAC"
+}
+```
+
+`HTTP/1.1 201 Created`
+
+```json
+{
+    "id": 123,
+    "code": "pac",
+    "name": "Correios - PAC",
+    "additional_days": 2,
+    "additional_cost": 10.0,
+    "allow_free_shipping": true,
+    "active": true,
+    "created_at": "2013-04-12T10:15:10-03:00",
+    "updated_at": "2013-04-12T10:15:10-03:00"
+}
+```
+
+### GET /shipping_carriers/#{carrier_id}/options
+
+Receive a list of all Shipping Carriers Options.
+
+
+#### GET /shipping_carriers/1234/options
+
+`HTTP/1.1 200 OK`
+
+```json
+[
+    {
+        "id": 123,
+        "code": "pac",
+        "name": "Correios - PAC",
+        "additional_days": 0,
+        "additional_cost": 0.0,
+        "allow_free_shipping": false,
+        "active": true,
+        "created_at": "2013-04-12T10:15:10-03:00",
+        "updated_at": "2013-04-12T10:15:10-03:00"
+    },
+    {
+        "id": 456,
+        "code": "sedex",
+        "name": "Correios - SEDEX",
+        "additional_days": 0,
+        "additional_cost": 0.0,
+        "allow_free_shipping": false,
+        "active": true
+    }
+]
+```
+
+### GET /shipping_carriers/#{carrier_id}/options/#{option_id}
+
+Receive a single Shipping Carrier Option.
+
+#### GET /shipping_carrier/1234/options/123
+
+`HTTP/1.1 200 OK`
+
+```json
+{
+    "id": 123,
+    "code": "pac",
+    "name": "Correios - PAC",
+    "additional_days": 0,
+    "additional_cost": 0.0,
+    "allow_free_shipping": false,
+    "active": true,
+    "created_at": "2013-04-12T10:15:10-03:00",
+    "updated_at": "2013-04-12T10:15:10-03:00"
+}
+```
+
+### PUT /shipping_carriers/#{carrier_id}/options/#{option_id}
+
+Modify an existing Shipping Carrier Option.
+
+#### PUT /shipping_carriers/1234/options/123
+
+```json
+{
+    "additional_days": 2,
+    "additional_cost": 10.0,
+    "allow_free_shipping": true
+}
+```
+
+`HTTP/1.1 200 OK`
+
+```json
+{
+    "id": 123,
+    "code": "pac",
+    "name": "Correios - PAC",
+    "additional_days": 2,
+    "additional_cost": 10.0,
+    "allow_free_shipping": true,
+    "active": true,
+    "created_at": "2013-04-12T10:15:10-03:00",
+    "updated_at": "2013-04-12T10:15:10-03:00"
+}
+```
+
+### DELETE /shipping_carriers/#{carrier_id}/options/#{option_id}
+
+Remove a Shipping Carrier Option
+
+#### DELETE /shipping_carriers/1234/options/123
 
 `HTTP/1.1 200 OK`
 
